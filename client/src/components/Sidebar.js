@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import enhancedSidebar from '../HOCs/enhancedSidebar';
+// import { connect } from 'react-redux';
 import { Icon } from 'antd';
 import { Keyframes, animated, config } from 'react-spring';
 import delay from 'delay';
-import { dashAction } from '../actions';
 import 'antd/dist/antd.css';
 
 const fast = {
@@ -51,7 +51,9 @@ class Sidebar extends Component {
   };
 
   render() {
-    const { dispatch, activeItem, dashItems } = this.props;
+    // const { dispatch, activeItem, dashItems } = this.props;
+    const { navOptions } = this.props;
+    const { activeItem } = this.state;
 
     const { open } = this.state;
     const state = open === undefined ? 'peek' : open ? 'open' : 'close';
@@ -69,7 +71,7 @@ class Sidebar extends Component {
               }}
             >
               <ul className={'sidebar-list'}>
-                {dashItems.map((item, i) => {
+                {navOptions.map((item, i) => {
                   const { id } = item;
                   return (
                     <li
@@ -77,7 +79,7 @@ class Sidebar extends Component {
                       className={`sidebar-item ${
                         activeItem === id ? 'selected' : ''
                       }`}
-                      onClick={() => dispatch(dashAction.changeDashItem(id))}
+                      // onClick={() => dispatch(dashAction.changeDashItem(id))}
                     >
                       {id}
                     </li>
@@ -92,12 +94,13 @@ class Sidebar extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  const { activeItem } = state.dash;
+// const mapStateToProps = state => {
+//   const { activeItem } = state.dash;
+//
+//   return {
+//     activeItem
+//   };
+// };
 
-  return {
-    activeItem
-  };
-};
-
-export default connect(mapStateToProps)(Sidebar);
+// export default connect(mapStateToProps)(Sidebar);
+export default enhancedSidebar(Sidebar);
