@@ -9,5 +9,6 @@ To run this web app, the following are required:
 5. AWSaccessKeyID
 6. AWSsecretAccessKey
 
-Run npm install from client and server directories
+Run npm install from client and server directories.
+
 CD to server directory and on the command line type "npm run dev"
