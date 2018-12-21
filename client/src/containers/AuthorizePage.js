@@ -1,18 +1,13 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { userAPI } from '../API';
-import { userActions } from '../actions';
 import AuthorizeForm from '../components/authComponents/AuthorizeForm';
-import SignupPage from './SignupPage';
+import { Redirect } from 'react-router';
+import { connect } from 'react-redux';
+import { userActions } from '../actions';
 
 class AuthorizePage extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      studentID: ''
-    };
-  }
+  state = {
+    studentID: ''
+  };
 
   submitAuthRequest = async () => {
     const { dispatch } = this.props;
@@ -34,22 +29,16 @@ class AuthorizePage extends Component {
   render() {
     const { verified, errors } = this.props;
     const { studentID } = this.state;
-    console.log('Authorize Component Page');
-    console.log(this);
+
     return (
       <div>
-        {verified === false ? (
-          <AuthorizeForm
-            onSubmit={this.submitAuthRequest}
-            onChange={this.handleChange}
-            value={studentID}
-            errors={errors}
-          />
-        ) : (
-          <div>
-            <SignupPage />
-          </div>
-        )}
+        {verified && <Redirect to="/signup" />}
+        <AuthorizeForm
+          onSubmit={this.submitAuthRequest}
+          onChange={this.handleChange}
+          value={studentID}
+          errors={errors}
+        />
       </div>
     );
   }

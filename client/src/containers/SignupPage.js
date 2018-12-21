@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
-import { userActions } from '../actions';
-import { toastActions } from '../actions';
 import SignupForm from '../components/authComponents/SignupForm';
 import Toasts from '../components/Toasts';
-import auth from '../modules/auth';
+import { connect } from 'react-redux';
+import { userActions } from '../actions';
+import { toastActions } from '../actions';
 
 class SignupPage extends Component {
   constructor(props) {
@@ -41,12 +39,11 @@ class SignupPage extends Component {
 
   processForm = async event => {
     event.preventDefault();
+
     const { name, email, password } = this.state.user;
     const { dispatch } = this.props;
 
-    const token = auth.getVerifiedUserToken();
-
-    dispatch(userActions.register(name, email, password, token));
+    dispatch(userActions.register(name, email, password));
     // dispatch(
     //   toastActions.addToast({
     //     text: 'Uh oh, looks like something went wrong'
@@ -60,19 +57,14 @@ class SignupPage extends Component {
 
     return (
       <div>
-        {redirect === false ? (
-          <SignupForm
-            onSubmit={this.processForm}
-            onChange={this.changeUser}
-            errors={errors}
-            user={user}
-            toast={<Toasts />}
-          />
-        ) : (
-          <div>
-            <Redirect to="/login" />
-          </div>
-        )}
+        {redirect && <Redirect to="/login" />}
+        <SignupForm
+          onSubmit={this.processForm}
+          onChange={this.changeUser}
+          errors={errors}
+          user={user}
+          toast={<Toasts />}
+        />
       </div>
     );
   }
