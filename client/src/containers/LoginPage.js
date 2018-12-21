@@ -45,17 +45,14 @@ class LoginPage extends Component {
 
     return (
       <div>
-        {redirect === false ? (
-          <LoginForm
-            onSubmit={this.processForm}
-            onChange={this.changeUser}
-            errors={errors}
-            user={formUser}
-            open={open}
-          />
-        ) : (
-          <Redirect to="/user" />
-        )}
+        {redirect && <Redirect to="/user" />}
+        <LoginForm
+          onSubmit={this.processForm}
+          onChange={this.changeUser}
+          errors={errors}
+          user={formUser}
+          open={open}
+        />
       </div>
     );
   }

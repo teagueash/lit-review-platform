@@ -87,7 +87,7 @@ const verify = studentID => {
     dispatch(request());
 
     const res = await userService.verify(studentID);
-
+    console.log(res);
     // need to determine if valid user or error
     if (res.status === 200) {
       // successful sign up
