@@ -1,0 +1,30 @@
+{
+    "name": "stemproject",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "client": "cd ../client && npm start",
+        "server": "nodemon server.js",
+        "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "aws-sdk": "^2.378.0",
+        "body-parser": "^1.18.3",
+        "cors": "^2.8.4",
+        "express": "^4.16.3",
+        "express-session": "^1.15.6",
+        "jsonwebtoken": "^8.3.0",
+        "mongoose": "^5.2.6",
+        "multer": "^1.4.1",
+        "passport": "^0.4.0",
+        "passport-local": "^1.0.0",
+        "session": "^0.1.0",
+        "validator": "^10.4.0"
+    },
+    "devDependencies": {
+        "concurrently": "^3.6.1"
+    }
+}
