@@ -3,12 +3,15 @@ import { connect } from 'react-redux';
 import Sidebar from '../components/Sidebar';
 import DashComponent from './DashComponentPage';
 import auth from '../modules/auth';
+import { Switch, Route } from 'react-router-dom';
+import HomePage from './HomePage';
 
 class DashContainerPage extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      dashItems: [],
       role: ''
     };
   }
@@ -22,7 +25,6 @@ class DashContainerPage extends Component {
     return (
       <div className="dash-container">
         <Sidebar activeItem={activeItem} />
-        <DashComponent activeItem={activeItem} auth={'admin'} />
       </div>
     );
   }

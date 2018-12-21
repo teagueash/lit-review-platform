@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ViewUpcoming from '../components/dashComponents/ViewUpcoming';
+import { taskAPI } from '../API';
 import auth from '../modules/auth';
 
 class HomePage extends Component {
@@ -8,7 +9,14 @@ class HomePage extends Component {
 
     this.state = {
       name: '',
-      upcomingReviews: [],
+      upcomingReviews: [
+        {
+          topic: 'How is learning impacted by...',
+          date: '2018-09-23T07:00:00.000Z',
+          assignedTo: 'Austin Ashcraft',
+          submitted: true
+        }
+      ],
       thisWeek: []
     };
   }
@@ -16,7 +24,7 @@ class HomePage extends Component {
   // creates a five day forecast sets upcomingReviews state to pass to
   // <ViewUpcoming />
   async componentDidMount() {
-    const { viewUpcomingTasks } = this.props;
+    // const { viewUpcomingTasks } = this.props;
 
     const name = JSON.parse(auth.getUser()).name;
     this.setName(name);
@@ -30,14 +38,16 @@ class HomePage extends Component {
 
     this.generateSchedule(today);
 
-    const res = await viewUpcomingTasks({ today, nextWeek });
-    if (res.status === 200) {
-      const { data } = res;
-      this.setUpcomingReviews({ upcomingReviews: data });
-    } else {
-      // error
-      console.log('error occurred: ', res);
-    }
+    this.setUpcomingReviews({ upcomingReviews: this.state.upcomingReviews });
+
+    // const res = await viewUpcomingTasks({ today, nextWeek });
+    // if (res.status === 200) {
+    //   const { data } = res;
+    //   this.setUpcomingReviews({ upcomingReviews: data });
+    // } else {
+    //   // error
+    //   console.log('error occurred: ', res);
+    // }
   }
 
   setName = name => {
@@ -89,9 +99,21 @@ class HomePage extends Component {
     return parseInt(formattedDate);
   };
 
+  mountReview = () => console.log('im mounted!');
+
   render() {
     const { upcomingReviews, thisWeek, name } = this.state;
-    const { mountReview } = this.props;
+    console.log(upcomingReviews);
+    // const { mountReview } = this.props;
+    //
+    // const upcomingReviews = [
+    //   {
+    //     topic: 'How is learning impacted by...',
+    //     date: '2018-09-23T07:00:00.000Z',
+    //     assignedTo: 'Austin Ashcraft',
+    //     submitted: true
+    //   }
+    // ];
 
     return (
       <ViewUpcoming
@@ -100,7 +122,7 @@ class HomePage extends Component {
         getDayOfWeek={this.getDayOfWeek}
         daysOfWeek={thisWeek}
         formatDate={this.formatDate}
-        mountReview={mountReview}
+        mountReview={this.mountReview}
       />
     );
   }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import enhancedSidebar from '../HOCs/enhancedSidebar';
-// import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+
 import { Icon } from 'antd';
 import { Keyframes, animated, config } from 'react-spring';
 import delay from 'delay';
@@ -74,15 +75,13 @@ class Sidebar extends Component {
                 {navOptions.map((item, i) => {
                   const { id } = item;
                   return (
-                    <li
+                    <NavLink
                       key={id}
-                      className={`sidebar-item ${
-                        activeItem === id ? 'selected' : ''
-                      }`}
-                      // onClick={() => dispatch(dashAction.changeDashItem(id))}
+                      to={`/user/${id.toLowerCase()}`}
+                      activeClassName="selected"
                     >
                       {id}
-                    </li>
+                    </NavLink>
                   );
                 })}
               </ul>
@@ -94,13 +93,4 @@ class Sidebar extends Component {
   }
 }
 
-// const mapStateToProps = state => {
-//   const { activeItem } = state.dash;
-//
-//   return {
-//     activeItem
-//   };
-// };
-
-// export default connect(mapStateToProps)(Sidebar);
 export default enhancedSidebar(Sidebar);
