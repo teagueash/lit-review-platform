@@ -76,6 +76,7 @@ class Sidebar extends Component {
                   const { id } = item;
                   return (
                     <NavLink
+                      className="sidebar-item"
                       key={id}
                       to={`/user/${id.toLowerCase()}`}
                       activeClassName="selected"

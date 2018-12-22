@@ -1,35 +1,21 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import ViewReviews from '../components/dashComponents/ViewReviews';
+import enhancedViewReviews from '../HOCs/enhancedViewReviews';
 
 class ViewReviewsPage extends Component {
-  constructor(props) {
-    super(props);
+  // Receive either all or user-specific assigned tasks based off privilege
+  componentDidMount() {
+    const { data } = this.props;
 
-    this.state = {
-      allReviews: []
-    };
-  }
-
-  // Generates tasks based off user privilege
-  async componentDidMount() {
-    const { viewTasks } = this.props;
-
-    const res = await viewTasks();
-    if (res.status === 200) {
-      const { data } = res;
-      this.setState({ allReviews: data });
-    } else {
-      // error
-      console.log('error occured: ', res);
-    }
+    this.setState({ allReviews: data });
   }
 
   render() {
-    const { allReviews } = this.state;
-    const { mountReview } = this.props;
+    const { data } = this.props;
 
-    return <ViewReviews allReviews={allReviews} mountReview={mountReview} />;
+    return <ViewReviews allReviews={data} />;
   }
 }
 
-export default ViewReviewsPage;
+export default enhancedViewReviews(ViewReviewsPage);

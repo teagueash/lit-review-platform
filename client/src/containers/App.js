@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Header from '../components/Header.js';
-import Main from '../components/Main';
+import Main from '../routes/Main';
 
 const App = () => (
   <div>

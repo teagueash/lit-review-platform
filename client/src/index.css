@@ -406,6 +406,10 @@ body {
   float: left;
 }
 
+.sidebar-list a:focus {
+  text-decoration: none;
+}
+
 .toggle {
   position: absolute;
   margin: 30px 0 15px 5%;
@@ -415,8 +419,21 @@ body {
   cursor: pointer;
 }
 
-.selected {
+.sidebar-list {
+  height: 600px;
+  margin-top: 30px;
+  padding: 70px 0 45px 0;
+  border-right: 2px solid #69585f;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-list a:hover {
   color: #db0049;
+}
+
+.selected {
+  color: #db0049 !important;
   background-color: #bfc0cc;
   border-right: 5px solid !important;
 }
@@ -425,26 +442,13 @@ body {
   width: 150px;
 }
 
-.sidebar-list {
-  height: 600px;
-  margin-top: 30px;
-  padding-top: 70px;
-  padding-bottom: 45px;
-  list-style: none;
-  border-right: 2px solid #69585f;
-}
-
 .sidebar-item {
+  color: #3c3c3c;
   line-height: 45px;
   height: 50px;
   padding-left: 15%;
-  /* margin-left: 5%; */
   cursor: pointer;
   transition: color 0.5s ease;
-}
-
-.sidebar-list li:hover {
-  color: #db0049;
 }
 
 /**********************************
@@ -476,6 +480,7 @@ body {
 }
 
 .dash-title-text {
+  padding-top: 20px;
   font-weight: 300;
   letter-spacing: 1px;
   color: #353238;
@@ -488,7 +493,9 @@ body {
 ***********************************/
 
 .home-container {
+  padding-top: 20px;
   height: inherit;
+  text-align: center;
 }
 
 .view-home-content {
@@ -496,9 +503,7 @@ body {
   margin: 0;
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-around;
-  width: inherit;
-  height: inherit;
+  justify-content: center;
 }
 
 .home-headline-text {
@@ -508,7 +513,7 @@ body {
 
 .home-column {
   height: inherit;
-  width: 150px;
+  width: 200px;
 }
 
 .home-column-text {
@@ -553,8 +558,8 @@ h4.home-card {
 ***********************************/
 
 .assign-container {
-  margin-top: -40px !important;
   height: inherit;
+  text-align: center;
 }
 
 .assign-carousel-item-1 {
@@ -577,9 +582,7 @@ h4.home-card {
 
 .assign-direction {
   font-weight: 450;
-  padding-left: 20px;
   padding-top: 25px;
-  width: 200px;
   height: 60px;
   line-height: 60px;
 }
@@ -814,6 +817,7 @@ p.success {
   flex-flow: row wrap;
   justify-content: space-around;
   width: inherit;
+  text-align: center;
 }
 
 .view-mounted-container {

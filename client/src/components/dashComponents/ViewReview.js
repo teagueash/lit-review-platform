@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
 import auth from '../../modules/auth';
 
-const ViewOne = ({ review, dismountReview, deleteReview, uploadReview }) => {
+const ViewReview = ({ review, dismountReview, deleteReview, uploadReview }) => {
   const { date, topic, assignedTo, _id, submitted } = review;
 
   // role used to determine what additional elements user gets to see
@@ -50,4 +50,4 @@ const ViewOne = ({ review, dismountReview, deleteReview, uploadReview }) => {
   );
 };
 
-export default ViewOne;
+export default ViewReview;

@@ -100,8 +100,7 @@ class AssignReviews extends Component {
 
   render() {
     const { activeComponentIndex } = this.state;
-    console.log('Assign Component Page');
-    console.log(this);
+
     return (
       <div className="assign-container">
         {activeComponentIndex === 0 && (

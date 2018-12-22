@@ -19,11 +19,10 @@ const assignTask = async details => {
   }
 };
 
-const viewTasks = async taskID => {
+const viewTasks = async () => {
   const config = {
     headers: {
-      authorization: `bearer ${auth.getToken()}`,
-      details: { ...taskID }
+      authorization: `bearer ${auth.getToken()}`
     }
   };
 
@@ -35,11 +34,10 @@ const viewTasks = async taskID => {
   }
 };
 
-const viewMyTasks = async taskID => {
+const viewMyTasks = async () => {
   const config = {
     headers: {
-      authorization: `bearer ${auth.getToken()}`,
-      details: { ...taskID }
+      authorization: `bearer ${auth.getToken()}`
     }
   };
 
@@ -51,12 +49,12 @@ const viewMyTasks = async taskID => {
   }
 };
 
-const viewMyUpcomingTasks = async weekPeriod => {
+const viewMyUpcomingTasks = async ({ start, end }) => {
   const config = {
     headers: {
       authorization: `bearer ${auth.getToken()}`,
-      start: weekPeriod.today,
-      end: weekPeriod.nextWeek
+      start,
+      end
     }
   };
 
@@ -68,12 +66,12 @@ const viewMyUpcomingTasks = async weekPeriod => {
   }
 };
 
-const viewUpcomingTasks = async weekPeriod => {
+const viewUpcomingTasks = async ({ start, end }) => {
   const config = {
     headers: {
       authorization: `bearer ${auth.getToken()}`,
-      start: weekPeriod.today,
-      end: weekPeriod.nextWeek
+      start,
+      end
     }
   };
 

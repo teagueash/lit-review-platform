@@ -22,17 +22,17 @@ class Review extends Component {
     this.setState({ isHovering: !isHovering });
   };
 
+  // rename argument, metadata is not the correct terminology
   downloadReview = async metadata => {
     const res = await taskAPI.downloadReview(metadata);
 
     if (res.status !== 200) {
       console.log('an error occurred, review unable to be downloaded');
     }
-    console.log(res.data);
   };
 
   render() {
-    const { content, mountReview } = this.props;
+    const { content } = this.props;
     const { isHovering, auth } = this.state;
 
     return (
@@ -48,7 +48,7 @@ class Review extends Component {
               {isHovering && auth === 'admin' && (
                 <div>
                   <i
-                    onClick={() => mountReview(content)}
+                    onClick={() => console.log('clicked')}
                     className="far fa-eye delete-button fa-button"
                   />
                   <i className="fa fa-trash-o delete-button fa-button" />
@@ -61,7 +61,7 @@ class Review extends Component {
               {isHovering && auth === 'student' && (
                 <div>
                   <i
-                    onClick={() => mountReview(content)}
+                    onClick={() => console.log('clicked')}
                     className="far fa-eye delete-button fa-button"
                   />
                 </div>
