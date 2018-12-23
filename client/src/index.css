@@ -446,7 +446,7 @@ body {
   color: #3c3c3c;
   line-height: 45px;
   height: 50px;
-  padding-left: 15%;
+  padding-left: 40%;
   cursor: pointer;
   transition: color 0.5s ease;
 }
@@ -836,13 +836,8 @@ p.success {
 }
 
 .view-mounted-review-card {
-  margin: 0px auto 30px auto;
-  /* height: 400px;
-  width: 300px; */
-  /* box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.2),
-    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12); */
-  overflow: hidden;
-  text-overflow: ellipsis;
+  text-align: center;
+  padding-top: 20px;
 }
 
 .view-review-card h4 {
@@ -914,10 +909,6 @@ p.success {
   padding-top: 10px;
   height: 75px;
   margin-bottom: 25px;
-}
-
-.back-button-admin {
-  margin-right: 50px;
 }
 
 .assign-topic-button {

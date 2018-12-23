@@ -31,7 +31,7 @@ class HomePage extends Component {
     this.setState({ name });
   };
 
-  // initialize mapping of day of week key to review list value
+  // initialize mapping of key, value pair for day of week key to review list
   getNextFiveDays = dateRange => {
     const schedule = new Map();
     dateRange.map(date => {

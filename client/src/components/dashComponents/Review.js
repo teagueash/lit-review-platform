@@ -1,77 +1,39 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Spring } from 'react-spring';
-import { taskAPI } from '../../API';
-import auth from '../../modules/auth';
+import { connect } from 'react-redux';
 
-class Review extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isHovering: false,
-      auth: ''
-    };
-  }
-
-  componentDidMount() {
-    const { role } = JSON.parse(auth.getUser());
-    this.setState({ auth: role });
-  }
-
-  onChange = () => {
-    const { isHovering } = this.state;
-    this.setState({ isHovering: !isHovering });
-  };
-
-  // rename argument, metadata is not the correct terminology
-  downloadReview = async metadata => {
-    const res = await taskAPI.downloadReview(metadata);
-
-    if (res.status !== 200) {
-      console.log('an error occurred, review unable to be downloaded');
-    }
-  };
-
-  render() {
-    const { content } = this.props;
-    const { isHovering, auth } = this.state;
-
-    return (
-      <Spring delay={300} from={{ opacity: 0 }} to={{ opacity: 1 }}>
-        {({ opacity }) => (
-          <div style={{ opacity }} className="view-content">
-            <div
-              onMouseEnter={this.onChange}
-              onMouseLeave={this.onChange}
-              className="view-review-card"
-            >
-              <h4>{content.topic}</h4>
-              {isHovering && auth === 'admin' && (
-                <div>
-                  <i
-                    onClick={() => console.log('clicked')}
-                    className="far fa-eye delete-button fa-button"
-                  />
-                  <i className="fa fa-trash-o delete-button fa-button" />
-                  <i
-                    onClick={() => this.downloadReview(content)}
-                    className="fas fa-cloud-download-alt delete-button fa-button"
-                  />
-                </div>
-              )}
-              {isHovering && auth === 'student' && (
-                <div>
-                  <i
-                    onClick={() => console.log('clicked')}
-                    className="far fa-eye delete-button fa-button"
-                  />
-                </div>
-              )}
+const Review = ({ auth, content, onChange, isHovering, setReview }) => (
+  <Spring delay={300} from={{ opacity: 0 }} to={{ opacity: 1 }}>
+    {({ opacity }) => (
+      <div style={{ opacity }} className="view-content">
+        <div
+          onMouseEnter={onChange}
+          onMouseLeave={onChange}
+          onClick={setReview}
+          className="view-review-card"
+        >
+          <h4>{content.topic}</h4>
+          {isHovering && auth === 'admin' && (
+            <div>
+              <i className="fa fa-trash-o delete-button fa-button" />
+              <i
+                onClick={() => this.downloadReview(content)}
+                className="fas fa-cloud-download-alt delete-button fa-button"
+              />
             </div>
-          </div>
-        )}
-      </Spring>
-    );
-  }
-}
+          )}
+          {isHovering && auth === 'student' && (
+            <div>
+              <i
+                onClick={() => console.log('clicked')}
+                className="far fa-eye delete-button fa-button"
+              />
+            </div>
+          )}
+        </div>
+      </div>
+    )}
+  </Spring>
+);
 
 export default Review;

@@ -7,12 +7,6 @@ let initialState = {
   redirect: false
 };
 
-/*****************************************
- *                                       *
- *   TODO: refactor to include payload,  *
- *   not hardcoded state values          *
- *                                       *
- *****************************************/
 export const registration = (state = initialState, action) => {
   const { type } = action;
 
