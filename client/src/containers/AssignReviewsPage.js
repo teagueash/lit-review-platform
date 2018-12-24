@@ -40,7 +40,6 @@ class AssignReviews extends Component {
   // update state and call next to render next component
   setUser = assignedUser => {
     this.setState({ assignedUser });
-    this.next();
   };
 
   // update state (next not called here as each keystroke changes state)
@@ -104,7 +103,11 @@ class AssignReviews extends Component {
     return (
       <div className="assign-container">
         {activeComponentIndex === 0 && (
-          <AssignUser allUsers={this.state.allUsers} setUser={this.setUser} />
+          <AssignUser
+            allUsers={this.state.allUsers}
+            setUser={this.setUser}
+            next={this.next}
+          />
         )}
         {activeComponentIndex === 1 && (
           <AssignTopic

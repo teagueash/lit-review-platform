@@ -4,7 +4,7 @@ import ReviewCard from '../../containers/ReviewCard';
 
 const ReviewsList = ({ data }) => (
   <div className="view-reviews-container">
-    <h1 className="dash-title-text">View All Reviews</h1>
+    <h1 className="dash-title-text">VIEW ALL REVIEWS</h1>
     <div className="view-content">
       {data.map(review => (
         <ReviewCard key={review._id} content={review} />

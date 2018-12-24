@@ -1,5 +1,6 @@
 import React from 'react';
 import { Spring } from 'react-spring';
+import BackButton from '../../containers/BackButton';
 
 const AssignTopic = ({ handleChange, topic, next, back }) => (
   <Spring delay={300} from={{ opacity: 0 }} to={{ opacity: 1 }}>
@@ -9,15 +10,11 @@ const AssignTopic = ({ handleChange, topic, next, back }) => (
         <div className="button-container">
           <i
             onClick={back}
-            className={
-              'fas fa-long-arrow-alt-left fa-1x assign-topic-button back-button'
-            }
+            className="fas fa-long-arrow-alt-left fa-button button"
           />
           <i
             onClick={next}
-            className={
-              'fas fa-long-arrow-alt-right fa-1x assign-topic-button back-button'
-            }
+            className="fas fa-long-arrow-alt-right fa-button button"
           />
         </div>
         <div className="assign-carousel-content-2">

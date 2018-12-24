@@ -288,6 +288,7 @@ body {
   width: 50%;
 }
 
+.next-button,
 .login-card button,
 .signup-card button,
 .authorize-card button {
@@ -309,6 +310,8 @@ body {
     -webkit-box-shadow 0.15s ease-in-out, 0.3s transform ease;
   background-color: #db0049;
 }
+
+.assign-carousel-content button:hover,
 .login-card button:hover,
 .signup-card button:hover,
 .authorize-card button:hover {
@@ -562,9 +565,8 @@ h4.home-card {
   padding: 0;
   margin-top: 50px;
   display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  width: inherit;
+  flex-flow: column;
+  align-items: center;
   transform: translateY(-7.5%);
 }
 
@@ -917,6 +919,7 @@ p.success {
 
 .button:hover {
   background-color: #3fb2ff;
+  color: #fff;
 }
 
 .button i:hover {
