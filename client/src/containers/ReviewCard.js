@@ -1,18 +1,18 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Spring } from 'react-spring';
 import { Redirect, withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import { taskAPI } from '../API';
 import { userActions } from '../actions/index';
 import auth from '../modules/auth';
-import Review from '../components/dashComponents/Review';
+import ReviewElement from '../components/dashComponents/ReviewElement';
 
-class ReviewContainer extends Component {
+class ReviewCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isHovering: false,
-      auth: ''
+      auth: '',
+      remove: null
     };
   }
 
@@ -26,19 +26,14 @@ class ReviewContainer extends Component {
     this.setState({ isHovering: !isHovering });
   };
 
-  downloadReview = async data => {
-    const res = await taskAPI.downloadReview(data);
-
-    if (res.status !== 200) {
-      console.log('an error occurred, review unable to be downloaded');
-    }
-  };
-
-  // migrate to redux boilerplate
   setReview = () => {
     const { dispatch, content } = this.props;
 
     dispatch(userActions.setReview(content));
+  };
+
+  setRemove = () => {
+    this.setState({ remove: true });
   };
 
   // generate relative path redirect URL
@@ -49,27 +44,31 @@ class ReviewContainer extends Component {
     return relativePath;
   };
 
+  // evaluate redirect flag (if <Review /> is clicked) then whether
   render() {
     const { content, redirect } = this.props;
-    const { isHovering, auth } = this.state;
+    const { isHovering, auth, remove } = this.state;
 
     const path = this.getURL();
 
     return (
-      <div>
+      <Fragment>
         {redirect && <Redirect to={`/user/${path}/review`} />}
-        <Review
-          setReview={this.setReview}
-          auth={auth}
-          content={content}
-          onChange={this.onChange}
-          isHovering={isHovering}
-        />
-      </div>
+        {remove ? null : (
+          <ReviewElement
+            setReview={this.setReview}
+            setRemove={this.setRemove}
+            auth={auth}
+            content={content}
+            onChange={this.onChange}
+            isHovering={true}
+          />
+        )}
+      </Fragment>
     );
   }
 }
 
 const mapStateToProps = state => state.review;
 
-export default withRouter(connect(mapStateToProps)(ReviewContainer));
+export default withRouter(connect(mapStateToProps)(ReviewCard));

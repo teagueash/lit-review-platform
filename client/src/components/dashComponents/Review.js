@@ -1,39 +1,39 @@
-import React from 'react';
-import { Spring } from 'react-spring';
-import { connect } from 'react-redux';
+import React, { Component } from 'react';
+import Dropzone from 'react-dropzone';
+import BackButton from '../../containers/BackButton';
+import DeleteButton from '../../containers/DeleteButton';
 
-const Review = ({ auth, content, onChange, isHovering, setReview }) => (
-  <Spring delay={300} from={{ opacity: 0 }} to={{ opacity: 1 }}>
-    {({ opacity }) => (
-      <div style={{ opacity }} className="view-content">
-        <div
-          onMouseEnter={onChange}
-          onMouseLeave={onChange}
-          onClick={setReview}
-          className="view-review-card"
-        >
-          <h4>{content.topic}</h4>
-          {isHovering && auth === 'admin' && (
-            <div>
-              <i className="fa fa-trash-o delete-button fa-button" />
-              <i
-                onClick={() => this.downloadReview(content)}
-                className="fas fa-cloud-download-alt delete-button fa-button"
-              />
-            </div>
-          )}
-          {isHovering && auth === 'student' && (
-            <div>
-              <i
-                onClick={() => console.log('clicked')}
-                className="far fa-eye delete-button fa-button"
-              />
-            </div>
+const Review = ({ review, uploadReview, isAdmin }) => {
+  const { _id, date, topic, assignedTo } = review;
+
+  const dateObject = new Date(date);
+
+  return (
+    <div className="view-mounted-review-container">
+      <div className="view-mounted-review-card">
+        <div className="button-container">
+          <BackButton className={'fas fa-long-arrow-alt-left fa-button'} />
+          {isAdmin && (
+            <DeleteButton data={_id} className={'fa fa-trash-o fa-button'} />
           )}
         </div>
+        <h4 className="view-mounted-text">{topic}</h4>
+        <h4 className="view-mounted-text">{assignedTo}</h4>
+        <h4 className="view-mounted-text">{`${dateObject.getMonth()} ${dateObject.getDate()} ${dateObject.getFullYear()}`}</h4>
+        {!isAdmin && (
+          <div className="dash-dropzone">
+            <Dropzone onDrop={file => uploadReview(file, review)}>
+              <div className="dropzone-content">
+                <p>drag&drop files here</p>
+                <p>or</p>
+                <button className="dropzone-button">browse files</button>
+              </div>
+            </Dropzone>
+          </div>
+        )}
       </div>
-    )}
-  </Spring>
-);
+    </div>
+  );
+};
 
 export default Review;

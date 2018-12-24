@@ -10,7 +10,8 @@ class HomePage extends Component {
 
     this.state = {
       name: '',
-      schedule: []
+      schedule: [],
+      updateFlag: false
     };
   }
 

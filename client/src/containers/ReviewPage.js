@@ -4,12 +4,11 @@ import { Redirect } from 'react-router-dom';
 import { userActions } from '../actions/index';
 import { taskAPI } from '../API/index';
 import auth from '../modules/auth';
-import ViewReview from '../components/dashComponents/ViewReview';
+import Review from '../components/dashComponents/Review';
 
-class ViewReviewContainer extends Component {
+class ReviewPage extends Component {
   state = {
-    isAdmin: false,
-    prevPath: null
+    isAdmin: false
   };
   // check cache for review (in case of refresh)
   componentDidMount() {
@@ -41,41 +40,16 @@ class ViewReviewContainer extends Component {
     }
   };
 
-  // delete review and update state to reflect previous path
-  deleteReview = async () => {
-    const { _id } = this.props.review;
-    const res = await taskAPI.deleteTask(_id);
-
-    if (res.status === 200) {
-      this.setPrevPath();
-    } else {
-      console.log('an error occurred, review was not deleted');
-    }
-  };
-
-  // generate relative path redirect URL
-  setPrevPath = () => {
-    const { pathname } = this.props.location;
-    const prevPath = pathname.substring(0, pathname.lastIndexOf('/'));
-
-    this.setState({ prevPath });
-  };
-
   render() {
-    const { review, location } = this.props;
-    const { isAdmin, prevPath } = this.state;
+    const { review } = this.props;
+    const { isAdmin } = this.state;
 
     return (
-      <div>
-        {prevPath && <Redirect to={`${prevPath}`} />}
-        <ViewReview
-          review={review}
-          uploadReview={this.uploadReview}
-          deleteReview={this.deleteReview}
-          setPrevPath={this.setPrevPath}
-          isAdmin={isAdmin}
-        />
-      </div>
+      <Review
+        review={review}
+        uploadReview={this.uploadReview}
+        isAdmin={isAdmin}
+      />
     );
   }
 }
@@ -86,4 +60,4 @@ const mapStateToProps = state => {
   return { review };
 };
 
-export default connect(mapStateToProps)(ViewReviewContainer);
+export default connect(mapStateToProps)(ReviewPage);

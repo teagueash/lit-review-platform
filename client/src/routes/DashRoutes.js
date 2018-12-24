@@ -4,27 +4,27 @@ import PropTypes from 'prop-types';
 
 import HomePage from '../containers/HomePage';
 import AssignReviews from '../containers/AssignReviewsPage';
-import ViewReviewsPage from '../containers/ViewReviewsPage';
+import ReviewsListPage from '../containers/ReviewsListPage';
 import AuthorizeUser from '../components/dashComponents/AuthorizeUser';
-import ViewReviewContainer from '../containers/ViewReviewContainer';
+import ReviewPage from '../containers/ReviewPage';
 import Sidebar from '../components/Sidebar';
 
 class DashRoutes extends Component {
   render() {
     return (
-      <Fragment>
+      <div className="container">
         <Sidebar />
         <Switch>
           <Route exact path="/user/home" component={HomePage} />
           <Route path="/user/assign" component={AssignReviews} />
-          <Route exact path="/user/view" component={ViewReviewsPage} />
+          <Route exact path="/user/view" component={ReviewsListPage} />
           <Route path="/user/authorize" component={AuthorizeUser} />
           <Route
             path={['/user/home/review', '/user/view/review']}
-            component={ViewReviewContainer}
+            component={ReviewPage}
           />
         </Switch>
-      </Fragment>
+      </div>
     );
   }
 }

@@ -1,21 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ViewReviews from '../components/dashComponents/ViewReviews';
+import ReviewsList from '../components/dashComponents/ReviewsList';
 import enhancedViewReviews from '../HOCs/enhancedViewReviews';
 
-class ViewReviewsPage extends Component {
+class ReviewsListPage extends Component {
+  state = {
+    data: []
+  };
   // Receive either all or user-specific assigned tasks based off privilege
   componentDidMount() {
     const { data } = this.props;
 
-    this.setState({ allReviews: data });
+    this.setState({ data });
   }
 
   render() {
     const { data } = this.props;
 
-    return <ViewReviews allReviews={data} />;
+    return <ReviewsList data={data} />;
   }
 }
 
-export default enhancedViewReviews(ViewReviewsPage);
+export default enhancedViewReviews(ReviewsListPage);

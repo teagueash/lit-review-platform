@@ -1,6 +1,6 @@
 import React from 'react';
 import { Spring } from 'react-spring';
-import ReviewContainer from '../../containers/ReviewContainer';
+import ReviewCard from '../../containers/ReviewCard';
 
 const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
@@ -19,7 +19,7 @@ const ViewUpcoming = ({ name, schedule }) => (
                 <div className="home-column" key={dayOfWeek}>
                   <h1 className="home-column-text">{weekdays[dayOfWeek]}</h1>
                   {reviewArray.map(review => (
-                    <ReviewContainer key={review._id} content={review} />
+                    <ReviewCard key={review._id} content={review} />
                   ))}
                 </div>
               );

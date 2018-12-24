@@ -13,7 +13,7 @@ class AuthRoutes extends Component {
       <Switch>
         <Route exact path="/" component={Landing} />
         <Route path="/verifyAuthorize" component={AuthorizePage} />
-        <PrivateRoute path="/signup" component={LoginPage} />
+        <PrivateRoute path="/signup" component={SignupPage} />
         <Route path="/login" component={LoginPage} />
       </Switch>
     );
