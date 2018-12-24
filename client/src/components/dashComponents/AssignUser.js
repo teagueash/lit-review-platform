@@ -1,7 +1,7 @@
 import React from 'react';
 import { Spring } from 'react-spring';
 
-const AssignUser = ({ allUsers, setUser }) => (
+const AssignUser = ({ allUsers, setUser, next }) => (
   <Spring delay={300} from={{ opacity: 0 }} to={{ opacity: 1 }}>
     {({ opacity }) => (
       <div style={{ opacity }} className="assign-carousel-item-1">
@@ -16,6 +16,9 @@ const AssignUser = ({ allUsers, setUser }) => (
               <h4>{user.name}</h4>
             </div>
           ))}
+          <button onClick={next} className="next-button">
+            next
+          </button>
         </div>
       </div>
     )}

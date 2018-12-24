@@ -45,7 +45,7 @@ class LoginPage extends Component {
 
     return (
       <div>
-        {redirect && <Redirect to="/user" />}
+        {redirect && <Redirect to="/user/home" />}
         <LoginForm
           onSubmit={this.processForm}
           onChange={this.changeUser}

@@ -1,77 +1,39 @@
 import React, { Component } from 'react';
-import { Spring } from 'react-spring';
-import { taskAPI } from '../../API';
-import auth from '../../modules/auth';
+import Dropzone from 'react-dropzone';
+import BackButton from '../../containers/BackButton';
+import DeleteButton from '../../containers/DeleteButton';
 
-class Review extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isHovering: false,
-      auth: ''
-    };
-  }
+const Review = ({ review, uploadReview, isAdmin }) => {
+  const { _id, date, topic, assignedTo } = review;
 
-  componentDidMount() {
-    const { role } = JSON.parse(auth.getUser());
-    this.setState({ auth: role });
-  }
+  const dateObject = new Date(date);
 
-  onChange = () => {
-    const { isHovering } = this.state;
-    this.setState({ isHovering: !isHovering });
-  };
-
-  downloadReview = async metadata => {
-    const res = await taskAPI.downloadReview(metadata);
-
-    if (res.status !== 200) {
-      console.log('an error occurred, review unable to be downloaded');
-    }
-    console.log(res.data);
-  };
-
-  render() {
-    const { content, mountReview } = this.props;
-    const { isHovering, auth } = this.state;
-
-    return (
-      <Spring delay={300} from={{ opacity: 0 }} to={{ opacity: 1 }}>
-        {({ opacity }) => (
-          <div style={{ opacity }} className="view-content">
-            <div
-              onMouseEnter={this.onChange}
-              onMouseLeave={this.onChange}
-              className="view-review-card"
-            >
-              <h4>{content.topic}</h4>
-              {isHovering && auth === 'admin' && (
-                <div>
-                  <i
-                    onClick={() => mountReview(content)}
-                    className="far fa-eye delete-button fa-button"
-                  />
-                  <i className="fa fa-trash-o delete-button fa-button" />
-                  <i
-                    onClick={() => this.downloadReview(content)}
-                    className="fas fa-cloud-download-alt delete-button fa-button"
-                  />
-                </div>
-              )}
-              {isHovering && auth === 'student' && (
-                <div>
-                  <i
-                    onClick={() => mountReview(content)}
-                    className="far fa-eye delete-button fa-button"
-                  />
-                </div>
-              )}
-            </div>
+  return (
+    <div className="view-mounted-review-container">
+      <div className="view-mounted-review-card">
+        <div className="button-container">
+          <BackButton className={'fas fa-long-arrow-alt-left fa-button'} />
+          {isAdmin && (
+            <DeleteButton data={_id} className={'fa fa-trash-o fa-button'} />
+          )}
+        </div>
+        <h4 className="view-mounted-text">{topic}</h4>
+        <h4 className="view-mounted-text">{assignedTo}</h4>
+        <h4 className="view-mounted-text">{`${dateObject.getMonth()} ${dateObject.getDate()} ${dateObject.getFullYear()}`}</h4>
+        {!isAdmin && (
+          <div className="dash-dropzone">
+            <Dropzone onDrop={file => uploadReview(file, review)}>
+              <div className="dropzone-content">
+                <p>drag&drop files here</p>
+                <p>or</p>
+                <button className="dropzone-button">browse files</button>
+              </div>
+            </Dropzone>
           </div>
         )}
-      </Spring>
-    );
-  }
-}
+      </div>
+    </div>
+  );
+};
 
 export default Review;

@@ -91,6 +91,10 @@ body {
   background-color: #fafafa;
 }
 
+.container {
+  display: flex;
+}
+
 /**********************************
 *                                 *
 *             LANDING             *
@@ -284,6 +288,7 @@ body {
   width: 50%;
 }
 
+.next-button,
 .login-card button,
 .signup-card button,
 .authorize-card button {
@@ -305,6 +310,8 @@ body {
     -webkit-box-shadow 0.15s ease-in-out, 0.3s transform ease;
   background-color: #db0049;
 }
+
+.assign-carousel-content button:hover,
 .login-card button:hover,
 .signup-card button:hover,
 .authorize-card button:hover {
@@ -406,6 +413,10 @@ body {
   float: left;
 }
 
+.sidebar-list a:focus {
+  text-decoration: none;
+}
+
 .toggle {
   position: absolute;
   margin: 30px 0 15px 5%;
@@ -415,8 +426,21 @@ body {
   cursor: pointer;
 }
 
-.selected {
+.sidebar-list {
+  height: 600px;
+  margin-top: 30px;
+  padding: 70px 0 45px 0;
+  border-right: 2px solid #69585f;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-list a:hover {
   color: #db0049;
+}
+
+.selected {
+  color: #db0049 !important;
   background-color: #bfc0cc;
   border-right: 5px solid !important;
 }
@@ -425,26 +449,13 @@ body {
   width: 150px;
 }
 
-.sidebar-list {
-  height: 600px;
-  margin-top: 30px;
-  padding-top: 70px;
-  padding-bottom: 45px;
-  list-style: none;
-  border-right: 2px solid #69585f;
-}
-
 .sidebar-item {
+  color: #3c3c3c;
   line-height: 45px;
   height: 50px;
-  padding-left: 15%;
-  /* margin-left: 5%; */
+  padding-left: 40%;
   cursor: pointer;
   transition: color 0.5s ease;
-}
-
-.sidebar-list li:hover {
-  color: #db0049;
 }
 
 /**********************************
@@ -453,32 +464,16 @@ body {
 *                                 *
 ***********************************/
 
-.dash-container {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  box-sizing: border-box;
-  width: calc(100vw);
-  float: left;
-  height: calc(100vh - 71px);
-}
-
-.dash-component-container {
-  text-align: center;
-  margin-top: 25px;
-  margin-left: 150px;
-  width: calc(100vw - 150px);
-  height: calc(100vh - 71px);
-}
-
 .fa {
   font-size: 75px;
 }
 
 .dash-title-text {
+  padding-top: 20px;
   font-weight: 300;
   letter-spacing: 1px;
   color: #353238;
+  text-align: center;
 }
 
 /**********************************
@@ -488,7 +483,9 @@ body {
 ***********************************/
 
 .home-container {
+  padding-top: 20px;
   height: inherit;
+  text-align: center;
 }
 
 .view-home-content {
@@ -496,9 +493,7 @@ body {
   margin: 0;
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-around;
-  width: inherit;
-  height: inherit;
+  justify-content: center;
 }
 
 .home-headline-text {
@@ -508,7 +503,7 @@ body {
 
 .home-column {
   height: inherit;
-  width: 150px;
+  width: 200px;
 }
 
 .home-column-text {
@@ -553,8 +548,9 @@ h4.home-card {
 ***********************************/
 
 .assign-container {
-  margin-top: -40px !important;
   height: inherit;
+  text-align: center;
+  width: 100%;
 }
 
 .assign-carousel-item-1 {
@@ -569,17 +565,14 @@ h4.home-card {
   padding: 0;
   margin-top: 50px;
   display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  width: inherit;
+  flex-flow: column;
+  align-items: center;
   transform: translateY(-7.5%);
 }
 
 .assign-direction {
   font-weight: 450;
-  padding-left: 20px;
   padding-top: 25px;
-  width: 200px;
   height: 60px;
   line-height: 60px;
 }
@@ -807,6 +800,10 @@ p.success {
 *                                 *
 ***********************************/
 
+.view-reviews-container {
+  width: 100%;
+}
+
 .view-content {
   padding: 0;
   margin: 0;
@@ -814,16 +811,16 @@ p.success {
   flex-flow: row wrap;
   justify-content: space-around;
   width: inherit;
+  text-align: center;
 }
 
-.view-mounted-container {
-  margin: 25px auto 0px auto;
-  height: 100%;
+.view-mounted-review-container {
+  width: 100%;
 }
 
 .view-review-card {
   margin: 10px;
-  height: 200px !important;
+  min-height: 200px !important;
   width: 300px;
   border-radius: 5px;
   box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.2),
@@ -831,14 +828,13 @@ p.success {
   white-space: normal !important;
 }
 
+.view-review-card h4 {
+  margin-bottom: 0px;
+}
+
 .view-mounted-review-card {
-  margin: 0px auto 30px auto;
-  /* height: 400px;
-  width: 300px; */
-  /* box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.2),
-    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12); */
-  overflow: hidden;
-  text-overflow: ellipsis;
+  text-align: center;
+  padding-top: 20px;
 }
 
 .view-review-card h4 {
@@ -906,14 +902,28 @@ p.success {
 }
 
 .button-container {
-  /* text-align: left; */
-  padding-top: 10px;
-  height: 75px;
-  margin-bottom: 25px;
+  display: flex;
+  min-height: 100px;
+  /* justify-content: space-evenly; */
 }
 
-.back-button-admin {
-  margin-right: 50px;
+.button-container i {
+  color: #495057;
+  line-height: 100px;
+}
+
+.button {
+  width: 50%;
+  border-radius: 5px;
+}
+
+.button:hover {
+  background-color: #3fb2ff;
+  color: #fff;
+}
+
+.button i:hover {
+  color: #fff;
 }
 
 .assign-topic-button {
@@ -930,33 +940,23 @@ p.success {
     0.15s transform ease-in-out;
 }
 
-.edit-button {
-  margin-left: 160px;
-  margin-right: 160px;
-}
-
-.edit-button,
-.delete-button,
-.back-button {
-  font-size: 1rem;
-  line-height: 50px;
-  width: 50px;
-  height: 50px;
+.fa-button {
+  font-size: 30px;
+  margin: 0;
   cursor: pointer;
-  border-radius: 50%;
-  border: 0px solid rgba(0, 0, 0, 0.23);
-  transition: box-shadow 0.15s ease-in-out, 0.15s transform ease-in-out,
-    -webkit-box-shadow 0.15s ease-in-out;
-  color: #fff;
-  background-color: #db0049;
+  width: 100%;
+  height: 100%;
+  /* transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1); */
 }
 
-.edit-button:hover,
-.delete-button:hover,
-.back-button:hover,
-.assign-topic-button:hover {
-  transform: scale(1.1);
-  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+.fa-button:hover {
+  /* background-color: #3fb2ff; */
+  /* color: #fff; */
+  transform: translateZ(0);
+}
+
+.authorize-dash-container {
+  width: 100%;
 }
 
 /**********************************

@@ -44,7 +44,7 @@ class AuthorizeUsers extends Component {
     return (
       <Spring delay={300} from={{ opacity: 0 }} to={{ opacity: 1 }}>
         {({ opacity }) => (
-          <div style={{ opacity }} className="authorize-container">
+          <div style={{ opacity }} className="authorize-dash-container">
             <h1 className="dash-title-text">AUTHORIZE</h1>
             {success && <p className="dash-auth-scss-msg">{success}</p>}
             {errors && <p className="dash-auth-error-msg">{errors}</p>}

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import ViewUpcoming from '../components/dashComponents/ViewUpcoming';
+import enhancedHomePage from '../HOCs/enhancedHomePage';
+import { taskAPI } from '../API';
 import auth from '../modules/auth';
 
 class HomePage extends Component {
@@ -8,102 +10,60 @@ class HomePage extends Component {
 
     this.state = {
       name: '',
-      upcomingReviews: [],
-      thisWeek: []
+      schedule: [],
+      updateFlag: false
     };
   }
 
-  // creates a five day forecast sets upcomingReviews state to pass to
-  // <ViewUpcoming />
-  async componentDidMount() {
-    const { viewUpcomingTasks } = this.props;
+  // set home page name and update state.name and state.schedule based off HOC API call
+  componentDidMount() {
+    const { data, dateRange } = this.props;
 
-    const name = JSON.parse(auth.getUser()).name;
+    const name = JSON.parse(auth.getUser()).name.split(' ')[0];
     this.setName(name);
 
-    const today = new Date();
-    const nextWeek = new Date(
-      today.getFullYear(),
-      today.getMonth(),
-      today.getDate() + 5
-    );
+    // transform date string back into date object
+    data.map(review => (review.date = new Date(review.date)));
 
-    this.generateSchedule(today);
-
-    const res = await viewUpcomingTasks({ today, nextWeek });
-    if (res.status === 200) {
-      const { data } = res;
-      this.setUpcomingReviews({ upcomingReviews: data });
-    } else {
-      // error
-      console.log('error occurred: ', res);
-    }
+    this.setSchedule(data, dateRange);
   }
 
   setName = name => {
-    name = name.split(' ')[0];
     this.setState({ name });
   };
 
-  setUpcomingReviews = upcomingReviews => {
-    this.setState(upcomingReviews);
+  // initialize mapping of key, value pair for day of week key to review list
+  getNextFiveDays = dateRange => {
+    const schedule = new Map();
+    dateRange.map(date => {
+      schedule.set(date.getDay(), []);
+    });
+
+    return schedule;
   };
 
-  setThisWeek = thisWeek => {
-    this.setState(thisWeek);
-  };
+  // Assign key value pairs to reflect <day of week> to <[reviews]> relationship
+  setSchedule = (data, dateRange) => {
+    const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const schedule = this.getNextFiveDays(dateRange);
 
-  // determines the days of week to render (only shows next 5 days)
-  generateSchedule = today => {
-    const thisWeek = [];
-    for (var i = 0; i < 5; ++i) {
-      const day = new Date(
-        today.getFullYear(),
-        today.getMonth(),
-        today.getDate() + i
-      );
-      thisWeek.push(day);
-    }
-    this.setThisWeek({ thisWeek });
-  };
+    data.map(review => {
+      const { date } = review;
+      const day = date.getDay();
+      const arrayVal = schedule.get(day);
 
-  getDayOfWeek = date => {
-    const dateArray = date.split(' ');
-    const reviewDate = new Date(
-      dateArray[2],
-      dateArray[0],
-      dateArray[1]
-    ).toString();
-    return reviewDate;
-  };
+      schedule.set(day, [...arrayVal, review]);
+    });
 
-  // converts date object to a single number to compare against day of the week
-  // for formatting all <Review /> cards
-  formatDate = date => {
-    const dateArray = date.substring(0, date.indexOf('T')).split('-');
-    var formattedDate = dateArray[2];
-    if (formattedDate.indexOf('0') === 0) {
-      // leading 0, remove
-      formattedDate = formattedDate.substring(1);
-    }
-    return parseInt(formattedDate);
+    // transform to array for access to .map
+    this.setState({ schedule: Array.from(schedule) });
   };
 
   render() {
-    const { upcomingReviews, thisWeek, name } = this.state;
-    const { mountReview } = this.props;
+    const { schedule, name } = this.state;
 
-    return (
-      <ViewUpcoming
-        name={name}
-        upcomingReviews={upcomingReviews}
-        getDayOfWeek={this.getDayOfWeek}
-        daysOfWeek={thisWeek}
-        formatDate={this.formatDate}
-        mountReview={mountReview}
-      />
-    );
+    return <ViewUpcoming name={name} schedule={schedule} />;
   }
 }
 
-export default HomePage;
+export default enhancedHomePage(HomePage);

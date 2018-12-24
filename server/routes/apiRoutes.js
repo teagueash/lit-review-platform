@@ -10,25 +10,10 @@ const util = require("util");
 const fs = require("fs");
 const path = require("path");
 const multer = require("multer");
-// temp, proof of concept. change to use buffer and upload to S3 later
-const storage = multer.memoryStorage({
-  // destination: (req, file, callback) => {
-  //   callback(null, "./");
-  // },
-  // filename: (req, file, callback) => {
-  //   callback(null, file.originalname.replace(/ /g, "_"));
-  // }
-});
+const storage = multer.memoryStorage({});
 const upload = multer({ storage: storage });
-// const upload = multer({ dest: "./" });
 
 module.exports = app => {
-  app.get("/user", (req, res) => {
-    res.status(200).json({
-      message: "You're authorized to see this page!"
-    });
-  });
-
   // refactor this...
   app.post("/admin", (req, res) => {
     const { action } = req.body;
@@ -124,16 +109,29 @@ module.exports = app => {
 
   // return all lit reviews
   app.get("/viewTasks", (req, res) => {
-    User.find({ "documents.0": { $exists: true } }, (err, documents) => {
-      if (err) {
-        return res.status(400).json({
-          error: err,
-          message: "Unable to perform the request"
-        });
-      }
-      const allReviews = documents.map(a => a.documents);
-      const flattenedReviews = flattenDeep(allReviews);
-      return res.status(200).json(flattenedReviews);
+    const { authorization } = req.headers;
+
+    // format token
+    const token = authorization.split(" ")[1];
+
+    if (!token) {
+      return res.status(401).json({ message: "No token detected" });
+    }
+
+    jwt.verify(token, keys.jwtSecret, (err, user) => {
+      if (err) throw err;
+      const { _id } = user;
+      User.find({ "documents.0": { $exists: true } }, (err, documents) => {
+        if (err) {
+          return res.status(400).json({
+            error: err,
+            message: "Unable to perform the request"
+          });
+        }
+        const allReviews = documents.map(a => a.documents);
+        const flattenedReviews = flattenDeep(allReviews);
+        return res.status(200).json(flattenedReviews);
+      });
     });
   });
 
@@ -167,6 +165,7 @@ module.exports = app => {
 
   app.get("/viewUpcomingTasks", (req, res) => {
     const { start, end } = req.headers;
+
     User.aggregate([
       {
         $project: {
@@ -177,7 +176,7 @@ module.exports = app => {
               cond: {
                 $and: [
                   { $gte: ["$$doc.date", new Date(start)] },
-                  { $lt: ["$$doc.date", new Date(end)] }
+                  { $lte: ["$$doc.date", new Date(end)] }
                 ]
               }
             }

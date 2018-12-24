@@ -105,11 +105,29 @@ const clearErrors = () => {
   return { type: userConstants.CLEAR_ERRORS, errors: {} };
 };
 
+const setReview = (review = {}) => ({
+  review,
+  type: userConstants.SET_REVIEW
+});
+
+const clearReview = () => ({
+  type: userConstants.CLEAR_REVIEW,
+  review: {}
+});
+
+const updatePath = pathName => ({
+  type: userConstants.UPDATE_PATH,
+  pathName
+});
+
 export const userActions = {
   autoLogin,
   login,
   register,
   logout,
   verify,
-  clearErrors
+  clearErrors,
+  setReview,
+  clearReview,
+  updatePath
 };

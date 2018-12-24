@@ -10,7 +10,7 @@ const AssignDate = ({ handleChange, dueDate, back }) => (
         <div className="button-container">
           <i
             onClick={back}
-            className={'fas fa-long-arrow-alt-left fa-1x back-button'}
+            className={'fas fa-long-arrow-alt-left fa-button button'}
           />
         </div>
         <div className="assign-carousel-content">
