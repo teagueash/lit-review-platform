@@ -483,6 +483,7 @@ body {
 ***********************************/
 
 .home-container {
+  width: 100%;
   padding-top: 20px;
   height: inherit;
   text-align: center;

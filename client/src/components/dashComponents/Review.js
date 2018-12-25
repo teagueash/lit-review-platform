@@ -19,7 +19,8 @@ const Review = ({ review, uploadReview, isAdmin }) => {
         </div>
         <h4 className="view-mounted-text">{topic}</h4>
         <h4 className="view-mounted-text">{assignedTo}</h4>
-        <h4 className="view-mounted-text">{`${dateObject.getMonth()} ${dateObject.getDate()} ${dateObject.getFullYear()}`}</h4>
+        <h4 className="view-mounted-text">{`${dateObject.getMonth() +
+          1} ${dateObject.getDate()} ${dateObject.getFullYear()}`}</h4>
         {!isAdmin && (
           <div className="dash-dropzone">
             <Dropzone onDrop={file => uploadReview(file, review)}>
