@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import enhancedSidebar from '../HOCs/enhancedSidebar';
 import { NavLink } from 'react-router-dom';
 
-import { Icon } from 'antd';
 import { Keyframes, animated, config } from 'react-spring';
 import delay from 'delay';
 import 'antd/dist/antd.css';
@@ -37,32 +36,17 @@ const SpringSidebar = Keyframes.Spring({
 
 class Sidebar extends Component {
   state = {
-    open: undefined,
-    activeItem: 'Home'
-  };
-
-  toggle = () => {
-    const { open } = this.state;
-
-    if (open === undefined) {
-      this.setState(state => ({ open: false }));
-    } else {
-      this.setState(state => ({ open: !state.open }));
-    }
+    open: undefined
   };
 
   render() {
-    // const { dispatch, activeItem, dashItems } = this.props;
     const { navOptions } = this.props;
-    const { activeItem } = this.state;
-
     const { open } = this.state;
+
     const state = open === undefined ? 'peek' : open ? 'open' : 'close';
-    const icon = open ? 'fold' : 'unfold';
 
     return (
       <div className="sidebar-container">
-        <Icon type={`menu-${icon}`} className="toggle" onClick={this.toggle} />
         <SpringSidebar native={'true'} state={state}>
           {({ x }) => (
             <animated.div
