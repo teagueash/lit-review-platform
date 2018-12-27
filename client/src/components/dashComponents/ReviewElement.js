@@ -12,7 +12,7 @@ const ReviewElement = ({
   setReview,
   setRemove
 }) => (
-  <Spring delay={300} from={{ opacity: 0 }} to={{ opacity: 1 }}>
+  <Spring delay={100} from={{ opacity: 0 }} to={{ opacity: 1 }}>
     {({ opacity }) => (
       <div style={{ opacity }} className="view-content">
         <div

@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-const AssignTopic = ({ handleChange, topic, next, back }) => (
+const AssignTopic = ({ handleChange, topic, next }) => (
   <Fragment>
     <h3 className="assign-direction">Assign a topic</h3>
     <div className="assign-carousel-content">
