@@ -1,8 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import { Spring } from 'react-spring';
-import { Spin, Icon } from 'antd';
-
-const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
 
 class APIFeedback extends Component {
   constructor(props) {

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Parallax, ParallaxLayer } from 'react-spring/addons';
+
 import { taskAPI } from '../API';
 import { userAPI } from '../API';
 import AssignUser from '../components/dashComponents/AssignUser';
@@ -40,6 +42,7 @@ class AssignReviews extends Component {
   // update state and call next to render next component
   setUser = assignedUser => {
     this.setState({ assignedUser });
+    this.next(1);
   };
 
   // update state (next not called here as each keystroke changes state)
@@ -50,7 +53,7 @@ class AssignReviews extends Component {
   // update state and call next to render next component
   setDueDate = dueDate => {
     this.setState({ dueDate });
-    this.next();
+    this.next(3);
   };
 
   handleChange = e => {
@@ -63,19 +66,8 @@ class AssignReviews extends Component {
     this.setDueDate(date);
   };
 
-  // update which component index to display
-  next = () => {
-    const { activeComponentIndex } = this.state;
-    this.setState({
-      activeComponentIndex: activeComponentIndex + 1
-    });
-  };
-
-  back = () => {
-    const { activeComponentIndex } = this.state;
-    this.setState({
-      activeComponentIndex: activeComponentIndex - 1
-    });
+  next = page => {
+    this.parallax.scrollTo(page);
   };
 
   // make post request to api to update assignedUsers tasklist
@@ -98,38 +90,59 @@ class AssignReviews extends Component {
   };
 
   render() {
-    const { activeComponentIndex } = this.state;
-
     return (
       <div className="assign-container">
-        {activeComponentIndex === 0 && (
-          <AssignUser
-            allUsers={this.state.allUsers}
-            setUser={this.setUser}
-            next={this.next}
-          />
-        )}
-        {activeComponentIndex === 1 && (
-          <AssignTopic
-            handleChange={this.handleChange}
-            topic={this.state.topic}
-            next={this.next}
-            back={this.back}
-          />
-        )}
-        {activeComponentIndex === 2 && (
-          <AssignDate
-            handleChange={this.handleDateChange}
-            date={this.state.dueDate}
-            back={this.back}
-          />
-        )}
-        {activeComponentIndex === 3 && (
-          <APIFeedback submitAssignment={this.submitAssignment} />
-        )}
+        <Parallax
+          ref={ref => (this.parallax = ref)}
+          pages={3}
+          horizontal
+          scrolling={false}
+        >
+          <ParallaxLayer
+            factor={0.9}
+            offset={0}
+            speed={0.1}
+            style={{
+              height: '',
+              justifyContent: 'center'
+            }}
+          >
+            <AssignUser allUsers={this.state.allUsers} setUser={this.setUser} />
+          </ParallaxLayer>
+          <ParallaxLayer
+            factor={0.9}
+            offset={1}
+            speed={0.1}
+            style={{
+              height: '',
+              justifyContent: 'center'
+            }}
+          >
+            <AssignTopic
+              handleChange={this.handleChange}
+              topic={this.state.topic}
+              next={this.next}
+            />
+          </ParallaxLayer>
+          <ParallaxLayer
+            factor={0.9}
+            offset={2}
+            speed={-0}
+            style={{
+              justifyContent: 'center'
+            }}
+          >
+            <AssignDate
+              handleChange={this.handleDateChange}
+              date={this.state.dueDate}
+            />
+          </ParallaxLayer>
+        </Parallax>
       </div>
     );
   }
+
+  // <APIFeedback submitAssignment={this.submitAssignment} />
 }
 
 export default AssignReviews;
