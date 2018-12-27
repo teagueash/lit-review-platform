@@ -860,7 +860,6 @@ p.success {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
-  width: inherit;
   text-align: center;
 }
 
