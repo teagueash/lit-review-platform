@@ -47,7 +47,7 @@ class Landing extends Component {
             )}
           </Spring>
         ) : (
-          <Redirect to="/user" />
+          <Redirect to="/user/home" />
         )}
       </Fragment>
     );

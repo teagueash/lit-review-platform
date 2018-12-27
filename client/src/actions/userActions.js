@@ -12,7 +12,7 @@ const autoLogin = token => {
       dispatch(success(res.data.user));
     } else {
       const { errors } = res.data;
-      // // test whether no errors returned, if so set to empty object
+      // test whether no errors returned, if so set to empty object
       errors === undefined ? dispatch(failure({})) : dispatch(failure(errors));
     }
   };
