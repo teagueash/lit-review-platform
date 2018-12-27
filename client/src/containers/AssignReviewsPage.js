@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Parallax, ParallaxLayer } from 'react-spring/addons';
 
-import { taskAPI } from '../API';
 import { userAPI } from '../API';
 import AssignUser from '../components/dashComponents/AssignUser';
 import AssignTopic from '../components/dashComponents/AssignTopic';
@@ -14,10 +13,9 @@ class AssignReviews extends Component {
 
     this.state = {
       allUsers: [],
-      assignedUser: {},
+      user: {},
       topic: '',
-      dueDate: new Date(),
-      activeComponentIndex: 0
+      dueDate: new Date()
     };
   }
 
@@ -39,62 +37,62 @@ class AssignReviews extends Component {
     }
   };
 
-  // update state and call next to render next component
-  setUser = assignedUser => {
-    this.setState({ assignedUser });
-    this.next(1);
+  // update state
+  setUser = user => {
+    this.setState({ user });
   };
 
-  // update state (next not called here as each keystroke changes state)
+  // update state
   setTopic = topic => {
     this.setState({ topic });
   };
 
-  // update state and call next to render next component
+  // update state
   setDueDate = dueDate => {
     this.setState({ dueDate });
-    this.next(3);
   };
 
-  handleChange = e => {
+  // update user and queue next carousel item
+  handleUserChange = user => {
+    this.setUser({ user });
+    this.next(1);
+  };
+
+  // update topic
+  handleTopicChange = e => {
     e.preventDefault();
     // validate form, if empty do not set topic
     this.setTopic(e.target.value);
   };
 
+  // update date and queue next carousel item
   handleDateChange = date => {
     this.setDueDate(date);
+    this.next(3);
   };
 
+  // resets state and start at beginning of carousel
+  reset = () => {
+    this.setUser({});
+    this.setTopic('');
+    this.setDueDate(new Date());
+
+    this.next(0);
+  };
+
+  // toggles specified page in carousel
   next = page => {
     this.parallax.scrollTo(page);
   };
 
-  // make post request to api to update assignedUsers tasklist
-  submitAssignment = async () => {
-    const { assignedUser, topic, dueDate } = this.state;
-    const { name, id } = assignedUser;
-
-    const taskData = {
-      name,
-      id,
-      topic,
-      dueDate
-    };
-    try {
-      const res = await taskAPI.assignTask(taskData);
-      return res;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   render() {
+    const { allUsers, user, topic, dueDate } = this.state;
+
     return (
       <div className="assign-container">
         <Parallax
           ref={ref => (this.parallax = ref)}
-          pages={3}
+          pages={4}
           horizontal
           scrolling={false}
         >
@@ -107,7 +105,10 @@ class AssignReviews extends Component {
               justifyContent: 'center'
             }}
           >
-            <AssignUser allUsers={this.state.allUsers} setUser={this.setUser} />
+            <AssignUser
+              allUsers={allUsers}
+              handleChange={this.handleUserChange}
+            />
           </ParallaxLayer>
           <ParallaxLayer
             factor={0.9}
@@ -119,8 +120,8 @@ class AssignReviews extends Component {
             }}
           >
             <AssignTopic
-              handleChange={this.handleChange}
-              topic={this.state.topic}
+              topic={topic}
+              handleChange={this.handleTopicChange}
               next={this.next}
             />
           </ParallaxLayer>
@@ -132,17 +133,27 @@ class AssignReviews extends Component {
               justifyContent: 'center'
             }}
           >
-            <AssignDate
-              handleChange={this.handleDateChange}
-              date={this.state.dueDate}
+            <AssignDate handleChange={this.handleDateChange} date={dueDate} />
+          </ParallaxLayer>
+          <ParallaxLayer
+            factor={0.9}
+            offset={3}
+            speed={-0}
+            style={{
+              justifyContent: 'center'
+            }}
+          >
+            <APIFeedback
+              data={user}
+              topic={topic}
+              dueDate={dueDate}
+              reset={this.reset}
             />
           </ParallaxLayer>
         </Parallax>
       </div>
     );
   }
-
-  // <APIFeedback submitAssignment={this.submitAssignment} />
 }
 
 export default AssignReviews;

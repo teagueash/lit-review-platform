@@ -681,6 +681,85 @@ button.react-calendar__tile:enabled:focus {
   color: #fff;
 }
 
+.task-card {
+  height: 240px !important;
+  width: 200px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  border-radius: 3px;
+}
+
+.task-card:hover {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.task-text-container {
+  height: 50%;
+}
+
+.task-card-task {
+  font-weight: 300;
+}
+
+.task-button-container {
+  height: 50%;
+  display: flex;
+}
+
+.submit-button {
+  font-size: 12px;
+  margin: 60px 0 0 1px;
+  cursor: pointer;
+  color: #56876d;
+  text-align: center;
+  line-height: 60px;
+  letter-spacing: 0.1rem;
+  width: 50%;
+  height: 50%;
+  text-decoration: none;
+  border: 0px solid rgba(0, 0, 0, 0.23);
+  border-radius: 2px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.18), 0 2px 10px 0 rgba(0, 0, 0, 0.15);
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
+    -webkit-box-shadow 0.15s ease-in-out, 0.3s transform ease;
+  background-color: #fff;
+}
+
+.submit-button:hover {
+  color: #fff;
+  background-color: #56876d;
+  transform: scale(1.03);
+  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+}
+
+.remove-button {
+  font-size: 12px;
+  margin: 60px 1px 0 0;
+  cursor: pointer;
+  color: #db0049;
+  text-align: center;
+  line-height: 60px;
+  letter-spacing: 0.1rem;
+  width: 50%;
+  height: 50%;
+  text-decoration: none;
+  border: 0px solid rgba(0, 0, 0, 0.23);
+  border-radius: 2px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.18), 0 2px 10px 0 rgba(0, 0, 0, 0.15);
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
+    -webkit-box-shadow 0.15s ease-in-out, 0.3s transform ease;
+  background-color: #fff;
+}
+
+.remove-button:hover {
+  color: #fff;
+  background-color: #db0049;
+  transform: scale(1.03);
+  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+}
+
 svg {
   width: 100px;
   display: block;
