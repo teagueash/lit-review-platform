@@ -12,7 +12,7 @@ const AssignTopic = ({ handleChange, topic, next }) => (
         rows={4}
         spellCheck={true}
       />
-      <button onClick={() => next(2)} className="next-button">
+      <button onClick={() => next(2)} className="next-button n2">
         next
       </button>
     </div>

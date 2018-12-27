@@ -16,7 +16,7 @@ class APIFeedback extends Component {
   submitAssignment = async () => {
     const { data, topic, dueDate } = this.props;
     const { name, id } = data.user;
-    console.log('trying to submit assignment');
+
     const taskData = {
       name,
       id,

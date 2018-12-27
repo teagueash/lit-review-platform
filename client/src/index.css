@@ -308,6 +308,10 @@ body {
   background-color: #db0049;
 }
 
+.n2 {
+  background-color: #40a9ff;
+}
+
 .assign-carousel-content button:hover,
 .login-card button:hover,
 .signup-card button:hover,
@@ -677,7 +681,7 @@ button.react-calendar__tile:enabled:hover,
 button.react-calendar__tile:enabled:focus {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
   border-color: rgba(0, 0, 0, 0.09);
-  background-color: #db0049 !important;
+  background-color: #1087ff !important;
   color: #fff;
 }
 
