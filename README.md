@@ -1,4 +1,4 @@
-This is a React/Redux project meant to streamline and organize task management within the USC STEM Group.
+This is a React/Redux project meant to streamline and organize task management and work submissions within the USC STEM Group.
 
 To run this web app, the following are required:
 
