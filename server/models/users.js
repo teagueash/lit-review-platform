@@ -21,8 +21,6 @@ const userSchema = new Schema({
   },
   documents: [
     {
-      // keep track of a global variable server side for this number
-      // id: Number,
       topic: String,
       date: Date,
       assignedTo: String,

@@ -2,13 +2,6 @@ import axios from 'axios';
 import auth from '../modules/auth';
 import { userAPIConstants } from '../constants';
 
-/**
- *   refactor all paths to reflect a unique string   *
- *   ie remove case/switch from api routes           *
- *                                                   *
- *                                                   */
-
-// can probably refactor the constant out of this
 const getAll = async () => {
   try {
     const res = await axios.post('/admin', {

@@ -14,7 +14,6 @@ const storage = multer.memoryStorage({});
 const upload = multer({ storage: storage });
 
 module.exports = app => {
-  // refactor this...
   app.post("/admin", (req, res) => {
     const { action } = req.body;
 
@@ -38,16 +37,6 @@ module.exports = app => {
             users: userArr
           });
         }).sort("name");
-
-      // get a user
-      case apiConstants.GET_USER:
-        return {};
-      // authorize a user for registration
-      case apiConstants.AUTHORIZE_USER:
-        return {};
-      // remove a user
-      case apiConstants.REMOVE_USER:
-        return {};
     }
   });
 

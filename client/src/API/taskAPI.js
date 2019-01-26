@@ -8,7 +8,6 @@ const assignTask = async details => {
       details: { ...details }
     }
   };
-  // THIS IS UGLE CODE REFACTOR LATER PLEASE
   // if student user exists, update DB entry with new task details
   try {
     const res = await axios.post('/assignTask', config);

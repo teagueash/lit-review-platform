@@ -25,15 +25,6 @@ const SpringSidebar = Keyframes.Spring({
   }
 });
 
-// // Creates a keyframed trail
-// const Content = Keyframes.Trail({
-//   peek: [
-//     { delay: 600, from: { x: -100, opacity: 0 }, to: { x: 0, opacity: 1 } }
-//   ],
-//   open: { delay: 100, to: { x: 0, opacity: 1 } },
-//   close: { to: { x: -100, opacity: 0 } }
-// });
-
 class Sidebar extends Component {
   state = {
     open: undefined
