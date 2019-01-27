@@ -15,7 +15,7 @@ const fast = {
 // Creates a spring with predefined animation slots
 const SpringSidebar = Keyframes.Spring({
   // Slots can take arrays/chains,
-  peek: [{ delay: 500, from: { x: -100 }, to: { x: 0 }, config: fast }],
+  peek: [{ delay: 500, from: { x: -125 }, to: { x: 0 }, config: fast }],
   // single items,
   open: { to: { x: 0 }, config: config.default },
   // or async functions with side-effects
